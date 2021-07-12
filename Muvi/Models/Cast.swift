@@ -5,16 +5,21 @@
 //  Created by Mirzayev Farid on 12.07.2021.
 //
 
-import SwiftUI
+import Foundation
 
-struct Cast: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
+struct CastResponse: Codable {
+    var cast: [Cast]
 }
 
-struct Cast_Previews: PreviewProvider {
-    static var previews: some View {
-        Cast()
+struct Cast: Codable, Identifiable {
+    var id: Int?
+    var name: String?
+    var character: String?
+    var profile_path: String?
+    var profilePhoto: String {
+        if let path = profile_path {
+            return "https://image.tmdb.org/t/p/original/\(path)"
+        }
+        return "https://picsum.photos/200/300"
     }
 }

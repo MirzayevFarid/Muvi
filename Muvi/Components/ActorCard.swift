@@ -8,13 +8,43 @@
 import SwiftUI
 
 struct ActorCard: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+    @ObservedObject var movieService: MovieService
 
-struct ActorCard_Previews: PreviewProvider {
-    static var previews: some View {
-        ActorCard()
+    var body: some View {
+        VStack {
+            HStack(){
+                Text("Popular Actor's")
+                    .font(.system(size: 24))
+                    .fontWeight(.semibold)
+                Spacer()
+                Text("See All")
+                    .font(.system(size: 16))
+                    .fontWeight(.semibold)
+                    .foregroundColor(Color("Primary"))
+            }.padding()
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    ForEach(movieService.actors) { actor in
+                        VStack{
+                            AsyncImage(url: URL(string: actor.profilePhoto)!) {
+                                        Rectangle().foregroundColor(Color.gray.opacity(0.4))
+                                    } image: { (img) -> Image in
+                                        Image(uiImage: img)
+                                            .resizable()
+                                    }
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 77, height: 77)
+                                .clipShape(Rectangle())
+                                .cornerRadius(10)
+                            Text(actor.name ?? "-").frame(width: 77, height: 55).lineLimit(2)
+                        }
+                    }
+                    .padding()
+                }
+            }
+        }.onAppear {
+            movieService.getActors()
+        }
     }
 }

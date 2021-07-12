@@ -7,14 +7,13 @@
 
 import SwiftUI
 
-struct EnvironmentValues: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
+struct ImageCacheKey: EnvironmentKey {
+    static let defaultValue: ImageCache = TempImageCache()
 }
 
-struct EnvironmentValues_Previews: PreviewProvider {
-    static var previews: some View {
-        EnvironmentValues()
+extension EnvironmentValues {
+    var imageCache: ImageCache {
+        get { self[ImageCacheKey.self] }
+        set { self[ImageCacheKey.self] = newValue }
     }
 }

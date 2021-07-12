@@ -1,35 +1,59 @@
+////
+////  TabBar.swift
+////  DesignCode
+////
+////  Created by Meng To on 2019-12-09.
+////  Copyright © 2019 Meng To. All rights reserved.
+////
 //
-//  TabBar.swift
-//  DesignCode
+//import SwiftUI
 //
-//  Created by Meng To on 2019-12-09.
-//  Copyright © 2019 Meng To. All rights reserved.
+//struct TabBar: View {
+//    @State var selectedTab = "play.circle"
+//    
+//    var body: some View {
+//        ZStack {
+//            TabView(selection: $selectedTab) {
+//                
+//                switch selectedTab{
+//                
+//                case "play.circle" : Home().tabItem {
+//                    Image(systemName: "play.circle")
+//                    Text("Home")
+//                }.tag("play.circle")
+//                case "heart.fill" : Favorites().tabItem {
+//                    Image(systemName: "heart.fill")
+//                    Text("Courses")
+//                }.tag("heart.fill")
+//                default:
+//                    Home().tabItem {
+//                        Image(systemName: "play.circle")
+//                        Text("Home")
+//                    }
+//                }
+//            }
+////                        .edgesIgnoringSafeArea(.top)
+//            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+//            .ignoresSafeArea(.all, edges: .bottom)
+//            
+//            HStack(spacing: 20) {
+//                ForEach(tabs, id: \.self){image in
+//                    TabButton(image: image, selectedTab: $selectedTab)
+//                }
+//            }
+//            .frame(width: screen.maxX - 100, height: 60, alignment: .center)
+//            .background(Color("Blue"))
+//            .clipShape(RoundedRectangle(cornerRadius: 30))
+//        }
+//        
+//        
+//        
+//    }
+//}
 //
-
-import SwiftUI
-
-struct TabBar: View {
-    var body: some View {
-        TabView {
-            Home().tabItem {
-                Image(systemName: "play.circle.fill")
-                Text("Home")
-            }
-            CourseList().tabItem {
-                Image(systemName: "rectangle.stack.fill")
-                Text("Courses")
-            }
-            UpdateList().tabItem {
-                Image(systemName: "bell")
-                Text("Updates")
-            }
-        }
-        .edgesIgnoringSafeArea(.top)
-    }
-}
-
-struct TabBar_Previews: PreviewProvider {
-    static var previews: some View {
-        TabBar().environmentObject(UserStore())
-    }
-}
+//struct TabBar_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TabBar()
+//        
+//    }
+//}

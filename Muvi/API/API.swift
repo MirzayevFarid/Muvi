@@ -1,20 +1,13 @@
 //
-//  SwiftUIView.swift
+//  API.swift
 //  Muvi
 //
 //  Created by Mirzayev Farid on 12.07.2021.
 //
 
-import SwiftUI
+import Foundation
 
-struct SwiftUIView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
+struct API {
+    static let key = "b1e3d19a96c251ba8952296f110e63cc"
 }
 
-struct SwiftUIView_Previews: PreviewProvider {
-    static var previews: some View {
-        SwiftUIView()
-    }
-}

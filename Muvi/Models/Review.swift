@@ -4,17 +4,15 @@
 //
 //  Created by Mirzayev Farid on 12.07.2021.
 //
+import Foundation
 
-import SwiftUI
-
-struct Review: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
+struct ReviewResponse: Codable {
+    var results: [Review]
 }
 
-struct Review_Previews: PreviewProvider {
-    static var previews: some View {
-        Review()
-    }
+struct Review: Codable, Identifiable {
+    var id: String?
+    var author: String?
+    var content: String?
 }
+

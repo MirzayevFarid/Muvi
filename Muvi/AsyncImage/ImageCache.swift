@@ -5,16 +5,27 @@
 //  Created by Mirzayev Farid on 12.07.2021.
 //
 
-import SwiftUI
+import UIKit
 
-struct ImageCache: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
+protocol ImageCache {
+    subscript(_ url: URL) -> UIImage? { get set }
 }
 
-struct ImageCache_Previews: PreviewProvider {
-    static var previews: some View {
-        ImageCache()
+struct TempImageCache: ImageCache {
+    
+    private let cache: NSCache<NSURL, UIImage> = {
+        let cache = NSCache<NSURL, UIImage>()
+        cache.countLimit = 100
+        cache.totalCostLimit = 1024 * 1024 * 100
+        return cache
+    }()
+    
+    subscript(_ url: URL) -> UIImage? {
+        get {
+            cache.object(forKey: url as NSURL)
+        }
+        set {
+            newValue == nil ? cache.removeObject(forKey: url as NSURL) : cache.setObject(newValue!, forKey: url as NSURL)
+        }
     }
 }
