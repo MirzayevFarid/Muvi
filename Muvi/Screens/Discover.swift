@@ -49,7 +49,6 @@ private struct Cards: View {
                         VStack(alignment: .leading) {
                             Text(movie.title ?? "-").bold()
                             
-                            
                             Spacer()
                             
                             StarsRating(rating: CGFloat(movie.voteAverage), maxRating: 5)
@@ -80,8 +79,8 @@ private struct Cards: View {
                     Divider()
                 }
             }.onAppear{
-                movieService.movies.removeAll()
-                movieService.getTopRated()
+//                movieService.movies.removeAll()
+//                movieService.getTopRated()
             }
             
             .padding(.horizontal)
@@ -118,8 +117,8 @@ private struct TopBar: View {
             .padding()
         }
         .onAppear{
-            movieService.genres.removeAll()
-            movieService.getGenres()
+//            movieService.genres.removeAll()
+//            movieService.getGenres()
         }
         .frame(width: screen.width, height: 150, alignment: .leading)
         .padding(.bottom)

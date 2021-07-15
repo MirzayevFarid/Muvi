@@ -11,19 +11,22 @@ struct FilmCard: View {
     var movie: Movie
     var width: CGFloat = 200
     var height: CGFloat = 260
+    var showTopBar: Bool = true
     
     
     var body: some View {
         
         ZStack(alignment: .top) {
             AsyncImage(url: URL(string: movie.posterPath)!) {
-                        Rectangle().foregroundColor(Color.gray.opacity(0.4))
-                    } image: { (img) -> Image in
-                        Image(uiImage: img)
-                            .resizable()
-                    }
+                Rectangle().foregroundColor(Color.gray.opacity(0.4))
+            } image: { (img) -> Image in
+                Image(uiImage: img)
+                    .resizable()
+            }
             
-            CardTopBar(width: self.width, height: self.height)
+            if showTopBar{
+                CardTopBar(width: self.width, height: self.height)
+            }
             
         }
         .frame(width: width, height: height)
