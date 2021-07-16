@@ -21,6 +21,18 @@ struct Movie: Codable, Identifiable {
     var popularity: Double?
     var vote_average: Double?
     var vote_count: Int?
+    var runtime: Int?
+    var duration: String {
+        if let duration = runtime {
+            let (h, m) = secondsToHoursMinutes(seconds: duration)
+            print("DURATION :::: ")
+            print("\(h) Hours, \(m) Minutes")
+            
+            return "\(h) Hours, \(m) Minutes"
+        } else {
+            return "-"
+        }
+    }
     var video: Bool?
     var genre_ids: Array<Int>?
     var genreId: Int {
@@ -35,9 +47,16 @@ struct Movie: Codable, Identifiable {
             return ""
         }
     }
+    var backdropPath: String {
+        if let path = backdrop_path {
+            return "https://image.tmdb.org/t/p/original/\(path)"
+        } else {
+            return ""
+        }
+    }
     var voteAverage: Double {
         if let avg = vote_average {
-            return avg / 5
+            return 5 * avg / 10
         }
         return 0.0
     }

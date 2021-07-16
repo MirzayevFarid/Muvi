@@ -31,3 +31,7 @@ func getAngleMultiplier() -> Double {
         return 30
     }
 }
+
+func secondsToHoursMinutes (seconds : Int) -> (Int, Int) {
+  return (seconds / 3600, (seconds % 3600) / 60)
+}

@@ -12,16 +12,18 @@ struct Favorites: View {
     @State var viewState = CGSize.zero
     @State var show = true
     @ObservedObject var movieService = MovieService()
-
-
+    
     var body: some View {
-        ZStack {
-            VStack {
-                TopBar(movieService: self.movieService)
-                Cards(movieService: self.movieService)
+        
+            ZStack {
+                VStack {
+                    TopBar(movieService: self.movieService)
+                    Cards(movieService: self.movieService)
+                }
             }
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
         }
-    }
 }
 
 struct Favorites_Previews: PreviewProvider {
@@ -32,59 +34,60 @@ struct Favorites_Previews: PreviewProvider {
 
 private struct Cards: View {
     @ObservedObject var movieService: MovieService
-
-
+    
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(alignment: .leading, spacing:20) {
                 ForEach(movieService.movies) { movie in
-                    HStack{
-
-                        FilmCard(movie: movie, width: 140, height: 180)
-                            .frame(width: 140, height:180)
-                            .shadow(color: Color(#colorLiteral(red: 0.3803921569, green: 0.3803921569, blue: 0.3803921569, alpha: 0.5)), radius: 10, x: 0, y: 15)
-                            .padding(.trailing)
+                    NavigationLink(destination: FilmDetail(movie: movie)){
                         
-                        
-                        VStack(alignment: .leading) {
-                            Text(movie.title ?? "-").bold()
+                        HStack{
+                            FilmCard(movie: movie, width: 140, height: 180)
+                                .frame(width: 140, height:180)
+                                .shadow(color: Color(#colorLiteral(red: 0.3803921569, green: 0.3803921569, blue: 0.3803921569, alpha: 0.5)), radius: 10, x: 0, y: 15)
+                                .padding(.trailing)
                             
-                            Spacer()
                             
-                            StarsRating(rating: CGFloat(movie.voteAverage), maxRating: 5)
-                            Spacer()
-
-                            Text(movieService.getGenreById(id: movie.genreId))
-                                .font(.system(size: 12))
-                                .padding()
-                                .frame(height: 25)
-                                .foregroundColor(.black)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 5)
-                                        .stroke(Color("Gray2"), lineWidth: 1)
-                                )
-                            Spacer()
                             
-                            HStack{
-                                Image(systemName: "clock.fill")
-                                    .foregroundColor(Color("Gray2"))
-
-                                Text("1h 37m")
+                            VStack(alignment: .leading) {
+                                Text(movie.title ?? "-").bold()
+                                
+                                Spacer()
+                                
+                                StarsRating(rating: Float(movie.voteAverage))
+                                Spacer()
+                                
+                                Text(movieService.getGenreById(id: movie.genreId))
                                     .font(.system(size: 12))
-                                    .bold()
-                            }
-                            Spacer()
-                        }.padding(.vertical)
-                    }
+                                    .padding()
+                                    .frame(height: 25)
+                                    .foregroundColor(.black)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 5)
+                                            .stroke(Color("Gray2"), lineWidth: 1)
+                                    )
+                                Spacer()
+                                
+                                HStack{
+                                    Image(systemName: "clock.fill")
+                                        .foregroundColor(Color("Gray2"))
+                                    
+                                    Text("1h 37m")
+                                        .font(.system(size: 12))
+                                        .bold()
+                                }
+                                Spacer()
+                            }.padding(.vertical)
+                        }
+                    }.buttonStyle(PlainButtonStyle())
                     Divider()
                 }
-            }.onAppear{
-//                movieService.movies.removeAll()
-//                movieService.getTopRated()
             }
-            
             .padding(.horizontal)
             .ignoresSafeArea(.all)
+        }.onAppear{
+            //            movieService.movies.removeAll()
+            movieService.getNowPlaying()
         }
     }
 }
@@ -92,7 +95,7 @@ private struct Cards: View {
 
 private struct TopBar: View {
     @ObservedObject var movieService: MovieService
-
+    
     var body: some View {
         ZStack{
             Color("Blue").edgesIgnoringSafeArea(.all)
@@ -100,25 +103,25 @@ private struct TopBar: View {
                 Text("My Favourite")
                     .fontWeight(.bold)
                     .font(.system(size: 24))
-
+                
                 Text("Showing 234 Your favourite")
                     .font(.system(size: 14))
                     .fontWeight(.light)
-
+                
                 ScrollView(.horizontal, showsIndicators: false){
-                HStack{
-                    ForEach(movieService.genres) { genre in
-                        CategoryButton(categoryName: genre.name ?? "-", isSelected: genre.id == 28 ? true : false)
+                    HStack{
+                        ForEach(movieService.genres) { genre in
+                            CategoryButton(categoryName: genre.name ?? "-", isSelected: genre.id == 28 ? true : false)
+                        }
                     }
-                }
                 }
             }
             .frame(width: screen.width, height: 130, alignment: .leading)
             .padding()
         }
         .onAppear{
-//            movieService.genres.removeAll()
-//            movieService.getGenres()
+            movieService.getGenres()
+            
         }
         .frame(width: screen.width, height: 150, alignment: .leading)
         .padding(.bottom)

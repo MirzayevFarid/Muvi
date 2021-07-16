@@ -4,35 +4,54 @@
 //
 //  Created by Mirzayev Farid on 12.07.2021.
 //
+
 import SwiftUI
 
 struct StarsRating: View {
-    var rating: CGFloat
-    var maxRating: Int
-    
-    var body: some View {
-        let rate = String(format: "%.1f", Double(rating))
+  private static let MAX_RATING: Float = 5 // Defines upper limit of the rating
+    private static let COLOR = Color.yellow // The color of the stars
 
-        let stars = HStack(spacing: 2) {
-            ForEach(0..<maxRating) { _ in
-                Image(systemName: "star.fill")
-                    .aspectRatio(contentMode: .fit)
-                    .font(.system(size: 12))
-            }
-            Text("\(rate)").font(.system(size: 12)).bold().foregroundColor(.black)
-        }
-        
-        stars.overlay(
-            GeometryReader { g in
-                let width = rating / CGFloat(maxRating) * g.size.width
-                ZStack(alignment: .leading) {
-                    Rectangle()
-                        .frame(width: width)
-                        .foregroundColor(.yellow)
-                }
-            }
-            .mask(stars)
-        )
-        .foregroundColor(.gray)
-    }
+  let rating: Float
+  private let fullCount: Int
+  private let emptyCount: Int
+  private let halfFullCount: Int
+
+  init(rating: Float) {
+    self.rating = rating
+    fullCount = Int(rating)
+    emptyCount = Int(StarsRating.MAX_RATING - rating)
+    halfFullCount = (Float(fullCount + emptyCount) < StarsRating.MAX_RATING) ? 1 : 0
+  }
+
+  var body: some View {
+    HStack(spacing: 5) {
+      ForEach(0..<fullCount) { _ in
+         self.fullStar
+       }
+       ForEach(0..<halfFullCount) { _ in
+         self.halfFullStar
+       }
+       ForEach(0..<emptyCount) { _ in
+         self.emptyStar
+       }
+     }
+  }
+
+  private var fullStar: some View {
+    Image(systemName: "star.fill")
+        .foregroundColor(StarsRating.COLOR)
+        .font(.system(size: 14))
+  }
+
+  private var halfFullStar: some View {
+    Image(systemName: "star.lefthalf.fill")
+        .foregroundColor(StarsRating.COLOR)
+        .font(.system(size: 14))
+  }
+
+  private var emptyStar: some View {
+    Image(systemName: "star")
+        .foregroundColor(StarsRating.COLOR)
+        .font(.system(size: 14))
+  }
 }

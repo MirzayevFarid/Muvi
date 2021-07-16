@@ -17,6 +17,7 @@ struct ActorCard: View {
                     .font(.system(size: 24))
                     .fontWeight(.semibold)
                 Spacer()
+                
                 Text("See All")
                     .font(.system(size: 16))
                     .fontWeight(.semibold)
@@ -43,8 +44,6 @@ struct ActorCard: View {
                     .padding()
                 }
             }
-        }.onAppear {
-            movieService.getActors()
         }
     }
 }

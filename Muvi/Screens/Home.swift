@@ -19,8 +19,6 @@ struct Home: View {
     @State private var selectionIndex = 0
     
     var body: some View {
-        
-        
         ZStack {
             VStack {
                 TopBar( tabs: $tabs, movieService: self.movieService, selectionIndex: $selectionIndex)
@@ -29,13 +27,16 @@ struct Home: View {
                 Spacer()
             }
         }
-        
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
     }
 }
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
-        Home()
+        Group {
+            Home()
+        }
     }
 }
 
@@ -103,8 +104,11 @@ private struct Cards: View {
                             searchTerm.isEmpty ? true :
                                 $0.title?.lowercased().localizedStandardContains(searchTerm.lowercased()) ?? true }) { movie in
                     GeometryReader { geometry in
+                        
+                        NavigationLink(destination: FilmDetail(movie: movie)){
                         FilmCard(movie: movie)
                             .rotation3DEffect(Angle(degrees: Double(geometry.frame(in: .global).minX) - 50) / -getAngleMultiplier(), axis: (x: 0, y: 10, z: 0))
+                        }
                         
                     }
                 }
@@ -115,6 +119,7 @@ private struct Cards: View {
                             .opacity(0.1), radius: 0, x: 7, y:7)
             }.onAppear {
                 movieService.getNowPlaying()
+                movieService.getActors()
             }
             .padding(.horizontal)
         }

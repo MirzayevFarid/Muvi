@@ -7,15 +7,16 @@
 
 import SwiftUI
 
-struct FilmCard: View {
-    var movie: Movie
-    var width: CGFloat = 200
-    var height: CGFloat = 260
-    var showTopBar: Bool = true
+//struct FilmCard: View {
+func FilmCard(movie: Movie, width: CGFloat = 200, height: CGFloat = 260, showTopBar: Bool = true) -> some View {
+
+//    var movie: Movie
+//    var width: CGFloat = 200
+//    var height: CGFloat = 260
+//    var showTopBar: Bool = true
     
     
-    var body: some View {
-        
+//    var body: some View {
         ZStack(alignment: .top) {
             AsyncImage(url: URL(string: movie.posterPath)!) {
                 Rectangle().foregroundColor(Color.gray.opacity(0.4))
@@ -25,21 +26,24 @@ struct FilmCard: View {
             }
             
             if showTopBar{
-                CardTopBar(width: self.width, height: self.height)
+//                CardTopBar(width: self.width, height: self.height, movieRating: movie.voteAverage)
+                CardTopBar(width: width, height: height, movieRating: movie.voteAverage)
             }
             
         }
         .frame(width: width, height: height)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .scaledToFill()
-    }
-}
+        }
+//}
 
 struct CardTopBar: View {
     var width: CGFloat
     var height: CGFloat
+    var movieRating: Double
     
     var body: some View {
+        
         
         let rankSize = 16 * width / 200
         let rankFrameW = 80 * width / 200
@@ -57,7 +61,7 @@ struct CardTopBar: View {
                     Image(systemName: "star.fill")
                         .foregroundColor(.white)
                         .font(.system(size: rankSize))
-                    Text("7.2")
+                    Text(String(format: "%.1f", Double(movieRating)))
                         .font(.system(size: rankSize))
                         .fontWeight(.semibold)
                         .foregroundColor(.white)

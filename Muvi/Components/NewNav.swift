@@ -17,14 +17,16 @@ struct NewNav: View {
     @State private var selectedTab = Tab.movie
     
     var body: some View {
-        TabView(selection: $selectedTab) {
-            Home().tabItem {
-                tabBarItem(text: "Movies", image: "film")
-            }.tag(Tab.movie)
-            
-            Favorites().tabItem {
-                tabBarItem(text: "Discover", image: "square.stack")
-            }.tag(Tab.discover)
+        NavigationView{
+            TabView(selection: $selectedTab) {
+                Home().tabItem {
+                    tabBarItem(text: "Movies", image: "film")
+                }.tag(Tab.movie)
+                
+                Favorites().tabItem {
+                    tabBarItem(text: "Discover", image: "square.stack")
+                }.tag(Tab.discover)
+            }
         }
     }
     
