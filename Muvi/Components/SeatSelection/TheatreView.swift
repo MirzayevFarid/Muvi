@@ -62,7 +62,7 @@ struct TheatreView: View {
                 ForEach(0..<rows, id: \.self) { row in
                     HStack{
                         ForEach(0..<numbersPerRow, id: \.self){ number in
-                            ChairView(width: 30, accentColor: .accentColor, seat: Seat(id: UUID(), row: row + 3, number: number + 15) , onSelect: { seat in
+                            ChairView(width: 30, accentColor: .accentColor, seat: Seat(id: UUID(), row: row + 3, number: number + 1) , onSelect: { seat in
                                 self.selectedSeats.append(seat)
                             }, onDeselect: { seat in
                                 self.selectedSeats.removeAll(where: {$0.number == seat.number})
