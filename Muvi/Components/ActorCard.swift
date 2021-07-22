@@ -13,7 +13,7 @@ struct ActorCard: View {
     var body: some View {
         VStack {
             HStack(){
-                Text("Popular Actor's")
+                Text("Popular Actors")
                     .font(.system(size: 24))
                     .fontWeight(.semibold)
                 Spacer()

@@ -22,7 +22,7 @@ struct SeatsChoiceView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 0) {
-                DateTimeViewew(date: self.$date, hour: self.$hour)
+                DateTimeView(date: self.$date, hour: self.$hour)
                 TheatreView(selectedSeats: self.$selectedSeats).padding(.top, 40)
                 LCButton(text: "Continue") {
                     if(selectedSeats.count != 0 && !date.day.isEmpty && hour != ""){

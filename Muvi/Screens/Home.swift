@@ -27,7 +27,7 @@ struct Home: View {
                 Spacer()
             }
         
-        .padding(.top, 10)
+        .padding(.top, 20)
         .background(Color(.secondarySystemBackground))
         .edgesIgnoringSafeArea(.all)
         .navigationBarTitle("")

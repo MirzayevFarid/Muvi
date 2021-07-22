@@ -169,10 +169,4 @@ private struct About: View {
 }
 
 
-struct FilmDetail_Previews: PreviewProvider {
-    static var previews: some View {
-        FilmDetail(movie: movieList[0])
-    }
-}
-
 
