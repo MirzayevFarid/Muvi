@@ -59,7 +59,6 @@ struct BottomSheetView<Content: View>: View {
     }
     
     var body: some View {
-        
         GeometryReader { geometry in
             VStack(spacing: 0) {
                 self.indicator.padding()

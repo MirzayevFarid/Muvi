@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct StarsRating: View {
-  private static let MAX_RATING: Float = 5 // Defines upper limit of the rating
-    private static let COLOR = Color.yellow // The color of the stars
+  private static let MAX_RATING: Float = 5
+    private static let COLOR = Color.yellow
 
   let rating: Float
   private let fullCount: Int

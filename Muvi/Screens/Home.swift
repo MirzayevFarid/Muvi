@@ -19,14 +19,17 @@ struct Home: View {
     @State private var selectionIndex = 0
     
     var body: some View {
-        ZStack {
+        
             VStack {
                 TopBar( tabs: $tabs, movieService: self.movieService, selectionIndex: $selectionIndex)
                 Cards(searchTerm: $searchTerm, movieService: self.movieService)
                 ActorCard(movieService: self.movieService)
                 Spacer()
             }
-        }
+        
+        .padding(.top, 10)
+        .background(Color(.secondarySystemBackground))
+        .edgesIgnoringSafeArea(.all)
         .navigationBarTitle("")
         .navigationBarHidden(true)
     }
@@ -48,7 +51,6 @@ private struct TopBar: View {
     @Binding var selectionIndex: Int
     
     var body: some View {
-        ScrollView{
             VStack(alignment: .leading, spacing:10) {
                 HStack {
                     Image(systemName: "film")
@@ -87,7 +89,6 @@ private struct TopBar: View {
                     }
                 }.padding()
             }.padding()
-        }
     }
 }
 
@@ -98,7 +99,7 @@ private struct Cards: View {
     @ObservedObject var movieService: MovieService
     
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
+            ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 20) {
                 ForEach(movieService.movies.filter {
                             searchTerm.isEmpty ? true :
@@ -109,7 +110,6 @@ private struct Cards: View {
                         FilmCard(movie: movie)
                             .rotation3DEffect(Angle(degrees: Double(geometry.frame(in: .global).minX) - 50) / -getAngleMultiplier(), axis: (x: 0, y: 10, z: 0))
                         }
-                        
                     }
                 }
                 .frame(width: 200, height: 280)
@@ -122,6 +122,9 @@ private struct Cards: View {
                 movieService.getActors()
             }
             .padding(.horizontal)
-        }
+        }.onAppear(perform: {
+            UIScrollView.appearance().bounces = false
+        })
+        
     }
 }

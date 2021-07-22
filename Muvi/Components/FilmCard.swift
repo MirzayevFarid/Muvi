@@ -7,16 +7,7 @@
 
 import SwiftUI
 
-//struct FilmCard: View {
 func FilmCard(movie: Movie, width: CGFloat = 200, height: CGFloat = 260, showTopBar: Bool = true) -> some View {
-
-//    var movie: Movie
-//    var width: CGFloat = 200
-//    var height: CGFloat = 260
-//    var showTopBar: Bool = true
-    
-    
-//    var body: some View {
         ZStack(alignment: .top) {
             AsyncImage(url: URL(string: movie.posterPath)!) {
                 Rectangle().foregroundColor(Color.gray.opacity(0.4))
@@ -26,7 +17,6 @@ func FilmCard(movie: Movie, width: CGFloat = 200, height: CGFloat = 260, showTop
             }
             
             if showTopBar{
-//                CardTopBar(width: self.width, height: self.height, movieRating: movie.voteAverage)
                 CardTopBar(width: width, height: height, movieRating: movie.voteAverage)
             }
             
@@ -35,7 +25,6 @@ func FilmCard(movie: Movie, width: CGFloat = 200, height: CGFloat = 260, showTop
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .scaledToFill()
         }
-//}
 
 struct CardTopBar: View {
     var width: CGFloat

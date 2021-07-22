@@ -21,7 +21,7 @@ struct ActorCard: View {
                 Text("See All")
                     .font(.system(size: 16))
                     .fontWeight(.semibold)
-                    .foregroundColor(Color("Primary"))
+                    .foregroundColor(Color("Blue"))
             }.padding()
             
             ScrollView(.horizontal, showsIndicators: false) {

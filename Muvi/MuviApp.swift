@@ -11,7 +11,7 @@ import SwiftUI
 struct MuviApp: App {
     var body: some Scene {
         WindowGroup {
-            NewNav()
+            ContentView()
         }
     }
 }

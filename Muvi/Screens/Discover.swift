@@ -7,28 +7,28 @@
 
 import SwiftUI
 
-struct Favorites: View {
+struct Discover: View {
     @State var showCard = true
     @State var viewState = CGSize.zero
     @State var show = true
     @ObservedObject var movieService = MovieService()
     
     var body: some View {
-        
-            ZStack {
                 VStack {
                     TopBar(movieService: self.movieService)
                     Cards(movieService: self.movieService)
                 }
-            }
-            .navigationBarTitle("")
-            .navigationBarHidden(true)
+                .padding(.top, 10)
+                .background(Color(.secondarySystemBackground))
+                .edgesIgnoringSafeArea(.all)
+                .navigationBarTitle("")
+                .navigationBarHidden(true)
         }
 }
 
-struct Favorites_Previews: PreviewProvider {
+struct Discover_Previews: PreviewProvider {
     static var previews: some View {
-        Favorites()
+        Discover()
     }
 }
 
@@ -40,7 +40,6 @@ private struct Cards: View {
             VStack(alignment: .leading, spacing:20) {
                 ForEach(movieService.movies) { movie in
                     NavigationLink(destination: FilmDetail(movie: movie)){
-                        
                         HStack{
                             FilmCard(movie: movie, width: 140, height: 180)
                                 .frame(width: 140, height:180)
@@ -51,9 +50,7 @@ private struct Cards: View {
                             
                             VStack(alignment: .leading) {
                                 Text(movie.title ?? "-").bold()
-                                
                                 Spacer()
-                                
                                 StarsRating(rating: Float(movie.voteAverage))
                                 Spacer()
                                 
@@ -61,7 +58,7 @@ private struct Cards: View {
                                     .font(.system(size: 12))
                                     .padding()
                                     .frame(height: 25)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(Color("Gray2"))
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 5)
                                             .stroke(Color("Gray2"), lineWidth: 1)
@@ -79,15 +76,21 @@ private struct Cards: View {
                                 Spacer()
                             }.padding(.vertical)
                         }
-                    }.buttonStyle(PlainButtonStyle())
-                    Divider()
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    if movie.id != movieService.movies.last?.id {
+                        Divider()
+                    }
+                    else
+                    {
+                        Spacer().frame(height: 100)
+                    }
                 }
             }
             .padding(.horizontal)
             .ignoresSafeArea(.all)
         }.onAppear{
-            //            movieService.movies.removeAll()
-            movieService.getNowPlaying()
+            movieService.getDiscover()
         }
     }
 }
@@ -98,13 +101,12 @@ private struct TopBar: View {
     
     var body: some View {
         ZStack{
-            Color("Blue").edgesIgnoringSafeArea(.all)
             VStack(alignment: .leading, spacing:10) {
-                Text("My Favourite")
+                Text("Discover")
                     .fontWeight(.bold)
                     .font(.system(size: 24))
                 
-                Text("Showing 234 Your favourite")
+                Text("Showing \(movieService.movies.count) different films")
                     .font(.system(size: 14))
                     .fontWeight(.light)
                 
@@ -136,7 +138,7 @@ struct CategoryButton: View {
             .font(.system(size: 12))
             .padding()
             .frame(height: 35)
-            .background(isSelected ? Color("Primary") : Color.white)
+            .background(isSelected ? Color("Blue") : Color.white)
             .foregroundColor(isSelected ? .white : .black)
             .cornerRadius(10)
     }

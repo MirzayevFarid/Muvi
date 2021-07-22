@@ -17,6 +17,7 @@ final class MovieService: ObservableObject {
     static var movieBaseURL = "https://api.themoviedb.org/3/movie/"
     static var personBaseUrl = "https://api.themoviedb.org/3/person/popular/"
     static var genreBaseURL = "https://api.themoviedb.org/3/genre/movie/list"
+    static var discoverBaseURL = "https://api.themoviedb.org/3/discover/movie/"
     
     
     func getNowPlaying() {
@@ -36,7 +37,6 @@ final class MovieService: ObservableObject {
     }
     
     func getCast(for movie: Movie) {
-//        cast.removeAll()
         let urlString = "\(Self.movieBaseURL)\(movie.id ?? 100)/credits?api_key=\(API.key)&language=en-US"
         print(urlString)
         NetworkService<CastResponse>.fetch(from: urlString) { (result) in
@@ -52,7 +52,6 @@ final class MovieService: ObservableObject {
     
     
     func getActors() {
-//        actors.removeAll()
         let urlString = "\(Self.personBaseUrl)/?api_key=\(API.key)&language=en-US"
         NetworkService<ActorResponse>.fetch(from: urlString) { (result) in
             switch result {
@@ -65,7 +64,6 @@ final class MovieService: ObservableObject {
     }
     
     func getGenres() {
-//        genres.removeAll()
         let urlString = "\(Self.genreBaseURL)?api_key=\(API.key)&language=en-US"
         NetworkService<GenreResponse>.fetch(from: urlString) { (result) in
             switch result {
@@ -93,8 +91,20 @@ final class MovieService: ObservableObject {
     }
     
     private func getMovies(movieUrl: MovieURL) {
-//        movies.removeAll()
         NetworkService<MovieResponse>.fetch(from: movieUrl.urlString) { (result) in
+            switch result {
+            case .success(let movieResponse):
+                self.movies = movieResponse.results
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
+    
+    func getDiscover() {
+        let urlString = "\(Self.discoverBaseURL)/?api_key=\(API.key)&language=en-US"
+        NetworkService<MovieResponse>.fetch(from: urlString) { (result) in
             switch result {
             case .success(let movieResponse):
                 self.movies = movieResponse.results

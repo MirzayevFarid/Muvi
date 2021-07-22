@@ -11,17 +11,11 @@ struct FilmDetail: View {
     @State var showModal = false
     @State var movie: Movie
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    @State private var selectedSeats: [Seat] = []
-    @State private var showBasket: Bool = false
-    @State private var date: TicketDate = TicketDate.default
-    @State private var hour: String = ""
-    @State private var showPopup = false
-    
-    
     @State private var showSeats: Bool = false
 
+
     var body: some View {
-        ZStack(alignment: .top){
+        ZStack(alignment: .center){
             Group{
                 AsyncImage(url: URL(string: movie.posterPath)!) {
                     Rectangle().foregroundColor(Color.gray.opacity(0.4))
@@ -32,9 +26,10 @@ struct FilmDetail: View {
                 .edgesIgnoringSafeArea(.all)
                 .scaledToFill()
                 .blur(radius: 4)
-                .padding(-70)
+                .padding(-80)
                 
                 VStack {
+                    Spacer()
                     Cover(movie: movie)
                     Text(movie.title!)
                         .font(.system(size: 24))
@@ -46,29 +41,33 @@ struct FilmDetail: View {
                         .padding(.top, 5)
                     About(movie: movie)
                         .padding(.top, 15)
+
+                    Spacer()
+
+                    LCButton(text: "Choose seats") {
+                        self.showSeats.toggle()
+                    }.sheet(isPresented: self.$showSeats) {
+                        SeatsChoiceView(movie: self.movie, showSeats: $showSeats)
+                    }.padding(.horizontal, 50)
+
                 }
             }
-            .offset(y: -60)
-            .frame(height: screen.height - 260 )
-            
-            
-            
-            BottomSheetView(isOpen: $showModal, maxHeight: screen.height - 90, title: "Mark Your Calendar") {
-                SeatsChoiceView()
-            }
-            .edgesIgnoringSafeArea(.all)
+//            BottomSheetView(isOpen: $showModal, maxHeight: screen.height - 90, title: "Mark Your Calendar") {
+//                SeatsChoiceView(movie: movie)
+//            }
+//            .edgesIgnoringSafeArea(.all)
 
             
-        }.navigationBarBackButtonHidden(true)
+        }
+        .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: Button(action : {
             self.mode.wrappedValue.dismiss()
         }){
             Image(systemName: "arrow.left")
-                .foregroundColor(Color.white)
+                .font(.system(size: 24))
+                .foregroundColor(Color("Blue"))
         })
-        
     }
-  
 }
 
 
@@ -168,3 +167,12 @@ private struct About: View {
         .cornerRadius(10)
     }
 }
+
+
+struct FilmDetail_Previews: PreviewProvider {
+    static var previews: some View {
+        FilmDetail(movie: movieList[0])
+    }
+}
+
+

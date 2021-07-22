@@ -1,9 +1,8 @@
 //
-//  Utilities.swift
-//  DesignCode
+//  NewNav.swift
+//  Muvi
 //
-//  Created by Meng To on 2019-12-07.
-//  Copyright © 2019 Meng To. All rights reserved.
+//  Created by Mirzayev Farid on 12.07.2021.
 //
 
 import SwiftUI
