@@ -63,7 +63,7 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-1. Get a free API Key at [https://www.themoviedb.org/login) - There is a key inside project already for you
+1. Get a free API Key at [TheMovieDB](https://www.themoviedb.org/login) - There is a key inside project already for you
 2. Clone the repo
    ```sh
    git clone https://github.com/MirzayevFarid/Muvi.git
