@@ -1,13 +1,5 @@
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-
-<br />
-<p align="center">
-  <p align="center">
+<h1 align="center" >MUVI</h1>
+ <p align="center">
     An application for discovering most popular movies and </br>booking them by selecting date, time and seat by using modern UI!
     <br />
     <br />
@@ -17,7 +9,6 @@
     ·
     <a href="https://github.com/MirzayevFarid/Muvi/issues">Request Feature</a>
   </p>
-</p>
 
 
 
